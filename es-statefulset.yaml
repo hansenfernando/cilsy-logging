@@ -4,9 +4,8 @@ metadata:
   name: kube-logging
 
 ---
-
-apiVersion: v1
 kind: Service
+apiVersion: v1
 metadata:
   name: elasticsearch
   namespace: kube-logging
@@ -23,7 +22,6 @@ spec:
       name: inter-node
 
 ---
-
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -45,7 +43,7 @@ spec:
         image: docker.elastic.co/elasticsearch/elasticsearch:7.11.2
         resources:
             limits:
-              cpu: 1000m
+              cpu: 500m
             requests:
               cpu: 100m
         ports:
@@ -97,7 +95,7 @@ spec:
         app: elasticsearch
     spec:
       accessModes: [ "ReadWriteOnce" ]
-      storageClassName: standard
+      storageClassName: gp2
       resources:
         requests:
-          storage: 5Gi
+          storage: 10Gi
